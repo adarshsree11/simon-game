@@ -39,6 +39,7 @@ $(".btn").click(function(){
     console.log(userClickedPattern);
     playSound(userChosenColor);
     animatePress(userChosenColor);
+    checkAnswer(userClickedPattern.length -1);
 });
 
 function playSound(name){
@@ -53,3 +54,26 @@ function animatePress(currentColor){
     }, 100);
 }
 
+function checkAnswer(currentLevel){
+    if(gamePatern[currentLevel] == userClickedPattern[currentLevel]){
+        console.log("success");
+        console.log(gamePatern);
+        console.log(userClickedPattern);
+        if(gamePatern.length === userClickedPattern.length){
+            console.log("sequence matched");
+            setTimeout(function(){
+                nextSequence();
+            }, 500);
+            userClickedPattern = []
+        }
+    }
+    else{
+        console.log("failure");
+        var audio = new Audio("sounds/wrong.mp3");
+        audio.play();
+        $("body").addClass("game-over");
+        setTimeout(function(){
+            $("body").removeClass("game-over");
+        }, 200);
+    }
+}
