@@ -54,6 +54,13 @@ function animatePress(currentColor){
     }, 100);
 }
 
+function startOver(){
+    level = 0;
+    gamePatern = [];
+    userClickedPattern = []
+    started = false;
+}
+
 function checkAnswer(currentLevel){
     if(gamePatern[currentLevel] == userClickedPattern[currentLevel]){
         console.log("success");
@@ -64,7 +71,7 @@ function checkAnswer(currentLevel){
             setTimeout(function(){
                 nextSequence();
             }, 500);
-            userClickedPattern = []
+            userClickedPattern = [];
         }
     }
     else{
@@ -75,5 +82,7 @@ function checkAnswer(currentLevel){
         setTimeout(function(){
             $("body").removeClass("game-over");
         }, 200);
+        $("#level-title").text("Game Over, Press Any Key to Restart");
+        startOver();
     }
 }
