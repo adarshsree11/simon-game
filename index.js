@@ -3,7 +3,23 @@ var userClickedPattern = [];
 
 var buttonColors = ["red", "green", "yellow", "blue"];
 
+var level = 0;
+$("#level-title").text = "level 0";
+
+var started = false;
+$(document).keypress(function() {
+    if (!started) {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
+    }
+});
+
 function nextSequence(){
+    
+    level++;
+    $("#level-title").text("Level " + level);
+
     var randomNumber = Math.floor(Math.random()*4);
     var randomColor = buttonColors[randomNumber];
     console.log(randomColor);
@@ -12,6 +28,8 @@ function nextSequence(){
 
     $("#"+randomColor).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     playSound(randomColor);
+
+
 }
 
 
@@ -34,3 +52,4 @@ function animatePress(currentColor){
         $("#"+currentColor).removeClass("pressed");
     }, 100);
 }
+
