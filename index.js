@@ -54,20 +54,27 @@ function animatePress(currentColor){
     }, 100);
 }
 
+function gameOver(){
+    var audio = new Audio("sounds/wrong.mp3");
+    audio.play();
+    $("body").addClass("game-over");
+    setTimeout(function(){
+        $("body").removeClass("game-over");
+    }, 200);
+    $("#level-title").text("Game Over, Press Any Key to Restart");
+    startOver();
+}
+
 function startOver(){
     level = 0;
     gamePatern = [];
-    userClickedPattern = []
+    userClickedPattern = [];
     started = false;
 }
 
 function checkAnswer(currentLevel){
     if(gamePatern[currentLevel] == userClickedPattern[currentLevel]){
-        console.log("success");
-        console.log(gamePatern);
-        console.log(userClickedPattern);
         if(gamePatern.length === userClickedPattern.length){
-            console.log("sequence matched");
             setTimeout(function(){
                 nextSequence();
             }, 500);
@@ -75,14 +82,6 @@ function checkAnswer(currentLevel){
         }
     }
     else{
-        console.log("failure");
-        var audio = new Audio("sounds/wrong.mp3");
-        audio.play();
-        $("body").addClass("game-over");
-        setTimeout(function(){
-            $("body").removeClass("game-over");
-        }, 200);
-        $("#level-title").text("Game Over, Press Any Key to Restart");
-        startOver();
+        gameOver();
     }
 }
